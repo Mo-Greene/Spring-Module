@@ -1,5 +1,7 @@
 package com.mo.jpastudy;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,11 +9,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class BoardRepositoryTest2 {
+class BoardRepositoryTest3 {
+
+    @Autowired
+    public EntityManager em;
 
     @Autowired
     private BoardRepository boardRepository;
@@ -32,30 +37,27 @@ class BoardRepositoryTest2 {
     }
 
     @Test
-    @Order(1)
-    public void countTest() {
-        assertTrue(boardRepository.countAllByWriter("writer 1") == 20);
+    @DisplayName("create Query => JPQL 테스트")
+    public void createQueryTest() {
+
+        String query = "SELECT b FROM Board b";
+        TypedQuery<Board> typedQuery = em.createQuery(query, Board.class);
+        List<Board> list = typedQuery.getResultList();
+
+        assertTrue(list.size() == 100);
     }
 
     @Test
-    @Order(2)
-    public void findTest() {
-        List<Board> list = boardRepository.findBoardByWriter("writer 1");
-
-        assertTrue(list.size() == 20);
+    @DisplayName("Jpql Test")
+    public void queryAnnoTest() {
+        List<Board> list = boardRepository.findAllBoard();
+        assertTrue(list.size() == 100);
     }
 
     @Test
-    public void deleteTest() {
-        assertTrue(boardRepository.deleteByWriter("writer 1") == 20);
-        List<Board> list = boardRepository.findBoardByWriter("writer 1");
-        assertTrue(list.isEmpty());
-    }
-
-    @Test
-    public void findByTitleAndWriter() {
-        List<Board> list = boardRepository.findBoardByTitleAndWriter("title 2", "writer 2");
-        System.out.println("list.size : " + list.size());
+    @DisplayName("@Query JPQL 테스트 - 매개변수 작성")
+    public void queryFindByTitle() {
+        List<Board> list = boardRepository.findBoardByTitle("title 1");
         assertTrue(list.size() == 1);
     }
 }

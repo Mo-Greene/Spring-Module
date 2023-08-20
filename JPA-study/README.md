@@ -10,7 +10,7 @@
 2. Query Method : 메서드 이름으로 JPQL을 자동생성
     - boardRepository.findByTitleAndWrtier....
     - 너무 길어짐
-    - [쿼리메서드 예시] (https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
+    - [쿼리메서드 예시](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
 
 
 3. JPA Criteria : JPQL 메서드 조합으로 작성
