@@ -22,28 +22,22 @@ public class SecurityConfig {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
-		try {
-			http
-				.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests((authorizeRequest) ->
-					authorizeRequest
-						.requestMatchers("/auth/**").permitAll()
-						.anyRequest().authenticated()
-				)
-				.sessionManagement((sessionManagement) ->
-					sessionManagement
-						.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				)
-				.authenticationProvider(authenticationProvider)
-				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-			;
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-			return http.build();
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
+		http
+			.csrf(csrf -> csrf.disable())
+			.authorizeHttpRequests((authorizeRequest) -> authorizeRequest
+					.requestMatchers("/auth/**").permitAll()
+					.anyRequest().authenticated()
+			)
+			.sessionManagement((sessionManagement) ->
+				sessionManagement
+					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			)
+			.authenticationProvider(authenticationProvider)
+			.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+		;
 
-		return null;
+		return http.build();
 	}
 }

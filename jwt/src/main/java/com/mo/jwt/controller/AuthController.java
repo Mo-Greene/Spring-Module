@@ -1,6 +1,7 @@
 package com.mo.jwt.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +15,17 @@ import com.mo.jwt.service.AuthService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
 	private final AuthService authService;
 
-	@PostMapping("/login")
+	@GetMapping("")
+	public String hello() {
+		return "Hello JWT World!";
+	}
+
+	@PostMapping("/auth/login")
 	public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest login) {
 		User user = User.builder()
 			.email(login.email())
