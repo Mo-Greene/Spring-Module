@@ -1,1 +1,5 @@
-
+naver-cloud:
+  accessKey: ${NAVER_ACCESS_KEY}
+  secretKey: ${NAVER_SECRET_KEY}
+  serviceId: ${NAVER_SERVICE_ID}
+  senderPhone: ${NAVER_SENDER_PHONE}

@@ -1,9 +1,18 @@
 package com.mo.messege.message.constant;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class NaverApi {
 
-	public static final String ACCESS_KEY = "FUO1bfkaeuX91JyqBBm9";
-	public static final String SECRET_KEY = "9YwHeO7EW6ucnFb7OMrKvk6jYkqSpJvoJtVJYpVQ";
-	public static final String SERVICE_ID = "ncp:sms:kr:285628743188:sms_practice";
-	public static final String SENDER_PHONE = "01022745320";
+	@Value("${naver-cloud.accessKey}")
+	public static String ACCESS_KEY;
+
+	@Value("${naver-cloud.secretKey}")
+	public static String SECRET_KEY;
+
+	@Value("${naver-cloud.serviceId}")
+	public static String SERVICE_ID;
+
+	@Value("${naver-cloud.senderPhone}")
+	public static String SENDER_PHONE;
 }
